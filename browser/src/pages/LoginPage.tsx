@@ -7,11 +7,11 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('login');
 
-  const handleUsernameChange = (e) => {
+  const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
 
@@ -25,7 +25,7 @@ const LoginPage = () => {
     console.log('注册密码:', password);
   };
 
-  const onTabChange = (key) => {
+  const onTabChange = (key: string) => {
     setActiveTab(key);
   };
 
