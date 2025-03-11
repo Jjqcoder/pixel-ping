@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./",  // 将根目录设置为项目根目录
+    "outDir": "./build",
     "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "target": "ES6",
+    "module": "commonjs"
   },
   "include": ["src/**/*"]
 }

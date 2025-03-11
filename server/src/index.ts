@@ -1,20 +1,15 @@
-import express from "express";
-import prisma from "./prisma";
+// src/index.ts
+import express, {json, urlencoded} from "express";
+import { RegisterRoutes } from "../build/routes";
 
-const app = express();
-app.use(express.json());
+export const app = express();
 
-app.get("/users", async (req, res) => {
-  const users = await prisma.user.findMany();
-  res.json(users);
-});
+// Use body parser to read sent json payloads
+app.use(
+  urlencoded({
+    extended: true,
+  })
+);
+app.use(json());
 
-app.post("/users", async (req, res) => {
-  const user = await prisma.user.create({ data: req.body });
-  res.json(user);
-});
-
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+RegisterRoutes(app);
