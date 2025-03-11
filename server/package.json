@@ -5,7 +5,10 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc",
-    "start:prod": "node dist/index.js"
+    "start:prod": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +18,10 @@
     "express": "^4.21.2"
   },
   "devDependencies": {
+    "@prisma/client": "^6.4.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
+    "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   }
