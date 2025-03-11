@@ -1,4 +1,4 @@
-// src/index.ts
+// src/app.ts
 import express, {json, urlencoded} from "express";
 import { RegisterRoutes } from "../build/routes";
 

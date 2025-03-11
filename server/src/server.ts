@@ -1,8 +1,8 @@
 // 入口文件
-import { app } from "./index";
+import { app } from "./app";
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Testing at http://localhost:${port}/example`)
 );
