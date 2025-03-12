@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Input, Button, Tabs } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Api } from '../api';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 // 创建Api实例
 const api = new Api();
@@ -24,7 +26,8 @@ const LoginPage = () => {
     console.log('登录密码:', password);
     // 测试
     api.post(`${import.meta.env.VITE_API_BASE_URL}/users/login`,{username, password}).then(value=>{
-      console.log(value);
+      console.log(value.code);
+      toast(value.message)
     })
   };
 
@@ -39,6 +42,8 @@ const LoginPage = () => {
 
   return (
     <div style={{ width: 400, margin: '50px auto', padding: 20, border: '1px solid #ccc', borderRadius: 5 }}>
+      {/* 用于显示弹窗信息 */}
+      <ToastContainer />
       <Tabs activeKey={activeTab} onChange={onTabChange} centered>
         <Tabs.TabPane tab="登录" key="login" />
         <Tabs.TabPane tab="注册" key="register" />
