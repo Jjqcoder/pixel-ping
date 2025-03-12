@@ -1,6 +1,8 @@
 生成 TSOA 路由和 OpenAPI 文档：
 pnpm tsoa spec
 pnpm tsoa routes
+或者直接使用
+pnpm tsoa spec-and-routes
 
 编译 TypeScript：
 pnpm tsc
