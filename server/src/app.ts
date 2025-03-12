@@ -1,8 +1,8 @@
 // src/app.ts
-import express, {json, urlencoded} from "express";
+import express, { json, urlencoded } from "express";
 import { RegisterRoutes } from "../build/routes";
 import cors from 'cors'
-import { WebSocketServer, WebSocket  } from "ws"; // 引入 WebSocketServer
+import { WebSocketServer, WebSocket } from "ws"; // 引入 WebSocketServer
 import { createServer } from "http"; // 引入 createServer
 
 export const app = express();
@@ -36,6 +36,9 @@ wss.on("connection", (ws) => {
   // 为每个 WebSocket 客户端生成唯一标识符
   const sessionId = `${Date.now()}-${Math.random().toString(36).substr(2)}`;
   sessions.set(sessionId, ws);
+
+  // 向所有会话广播当前的 sessionMap
+  broadcastSessions();
 
   ws.on("message", (message) => {
     console.log("Received message:", message);
@@ -87,12 +90,27 @@ wss.on("connection", (ws) => {
     console.log("WebSocket client disconnected");
     // 移除会话
     sessions.delete(sessionId);
+
+    // 向所有会话广播当前的 sessionMap
+    broadcastSessions();
   });
 });
 
 // 提供一个方法来获取当前所有会话
 function getAllSessions() {
   return Array.from(sessions.keys());
+}
+
+// 广播当前的 sessionMap 给所有会话
+function broadcastSessions() {
+  const sessionMap = Array.from(sessions.keys());
+  const message = JSON.stringify({ type: "sessionMap", data: sessionMap });
+
+  sessions.forEach((ws) => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(message);
+    }
+  });
 }
 
 // 测试：打印所有会话
