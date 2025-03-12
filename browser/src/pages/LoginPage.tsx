@@ -23,7 +23,7 @@ const LoginPage = () => {
     console.log('登录用户名:', username);
     console.log('登录密码:', password);
     // 测试
-    api.get(`${import.meta.env.VITE_API_BASE_URL}/example`).then(value=>{
+    api.post(`${import.meta.env.VITE_API_BASE_URL}/users/login`,{username, password}).then(value=>{
       console.log(value);
     })
   };
