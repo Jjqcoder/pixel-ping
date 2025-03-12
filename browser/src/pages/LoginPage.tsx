@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Input, Button, Tabs } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Api } from '../api';
+
+// 创建Api实例
+const api = new Api();
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -18,6 +22,10 @@ const LoginPage = () => {
   const handleLogin = () => {
     console.log('登录用户名:', username);
     console.log('登录密码:', password);
+    // 测试
+    api.get(`${import.meta.env.VITE_API_BASE_URL}/example`).then(value=>{
+      console.log(value);
+    })
   };
 
   const handleRegister = () => {
