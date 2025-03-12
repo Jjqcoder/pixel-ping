@@ -33,42 +33,55 @@ const sessions = new Map<string, WebSocket>();
 wss.on("connection", (ws) => {
   console.log("WebSocket client connected");
 
-  // 为每个 WebSocket 客户端生成唯一标识符（这里简单使用时间戳和随机数）
+  // 为每个 WebSocket 客户端生成唯一标识符
   const sessionId = `${Date.now()}-${Math.random().toString(36).substr(2)}`;
   sessions.set(sessionId, ws);
 
   ws.on("message", (message) => {
-    // console.log("Received message:", message);
+    console.log("Received message:", message);
 
     // 检查消息类型并转换为字符串
+    let textMessage: string;
     if (Buffer.isBuffer(message)) {
-        // 如果是二进制数据，将其转换为字符串
-        const textMessage = message.toString("utf8");
-        console.log("Received text message:", textMessage);
-
-        // 广播消息到所有客户端
-        wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-              if (textMessage === "PING") {
-                client.send('PONG'); // 发送字符串
-              } else {
-                client.send('消息来自服务器'+textMessage); // 发送字符串
-              }
-                
-            }
-        });
+      // 如果是 Buffer 类型的消息，将其转换为字符串
+      textMessage = message.toString("utf8");
+    } else if (typeof message === "string") {
+      // 如果已经是字符串类型的消息，直接使用
+      textMessage = message;
     } else {
-        // 如果已经是字符串，直接处理
-        console.log("Received text message:", message);
-
-        // 广播消息到所有客户端
-        wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(message); // 发送字符串
-            }
-        });
+      console.error("Received message is neither string nor Buffer:", message);
+      return; // 如果消息类型未知，直接返回
     }
-});
+
+    // 解析消息为 JSON 格式
+    try {
+      const messageData = JSON.parse(textMessage);
+
+      // 检查消息是否包含 to 和 msg 字段
+      if (messageData.to && messageData.msg) {
+        const toUserId = messageData.to;
+        const msg = messageData.msg;
+
+        // 构造发送的消息
+        const responseMessage = JSON.stringify({
+          from: sessionId, // 当前发送者的 sessionId
+          msg: msg,
+        });
+
+        // 查找目标用户的 WebSocket 连接
+        const targetClient = sessions.get(toUserId);
+        if (targetClient && targetClient.readyState === WebSocket.OPEN) {
+          targetClient.send(responseMessage);
+        } else {
+          console.log(`Target user ${toUserId} not found or not connected.`);
+        }
+      } else {
+        console.log("Invalid message format. Message must contain 'to' and 'msg' fields.");
+      }
+    } catch (error) {
+      console.error("Error parsing message:", error);
+    }
+  });
 
   ws.on("close", () => {
     console.log("WebSocket client disconnected");
