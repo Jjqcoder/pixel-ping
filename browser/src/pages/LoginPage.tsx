@@ -4,7 +4,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Api } from '../api';
 import { ToastContainer, toast } from 'react-toastify';
 
-
 // 创建Api实例
 const api = new Api();
 
@@ -21,14 +20,18 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    console.log('登录用户名:', username);
-    console.log('登录密码:', password);
-    // 测试
-    api.post(`${import.meta.env.VITE_API_BASE_URL}/users/login`,{username, password}).then(value=>{
-      console.log(value.code);
-      toast(value.message)
-    })
+  const handleLogin = async () => {
+    // console.log('登录用户名:', username);
+    // console.log('登录密码:', password);
+    let res;
+
+    try {
+      res = await api.post(`${import.meta.env.VITE_API_BASE_URL}/users/login`, { username, password });
+      toast(res.message)
+    } catch (error) {
+      toast("登录过程发生错误：" + error)
+    }
+
   };
 
   const handleRegister = () => {
