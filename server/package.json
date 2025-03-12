@@ -16,12 +16,14 @@
   "description": "",
   "dependencies": {
     "@tsoa/runtime": "^6.6.0",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "joi": "^17.13.3",
     "tsoa": "^6.6.0"
   },
   "devDependencies": {
     "@prisma/client": "^6.4.1",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/joi": "^17.2.3",
     "@types/node": "^22.13.10",
