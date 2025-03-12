@@ -26,9 +26,16 @@ export const httpServer = createServer(app);
 // 创建 WebSocket 服务器并绑定到 HTTP 服务器
 const wss = new WebSocketServer({ server: httpServer });
 
+// 用于存储 WebSocket 会话的映射表
+const sessions = new Map<string, WebSocket>();
+
 // WebSocket 事件处理
 wss.on("connection", (ws) => {
   console.log("WebSocket client connected");
+
+  // 为每个 WebSocket 客户端生成唯一标识符（这里简单使用时间戳和随机数）
+  const sessionId = `${Date.now()}-${Math.random().toString(36).substr(2)}`;
+  sessions.set(sessionId, ws);
 
   ws.on("message", (message) => {
     // console.log("Received message:", message);
@@ -65,5 +72,17 @@ wss.on("connection", (ws) => {
 
   ws.on("close", () => {
     console.log("WebSocket client disconnected");
+    // 移除会话
+    sessions.delete(sessionId);
   });
 });
+
+// 提供一个方法来获取当前所有会话
+function getAllSessions() {
+  return Array.from(sessions.keys());
+}
+
+// 测试：打印所有会话
+setInterval(() => {
+  console.log("Current sessions:", getAllSessions());
+}, 5000);
