@@ -3,12 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "build": "tsc",
-    "start:prod": "node dist/index.js",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "start": "pnpm tsoa spec-and-routes && pnpm tsc && pnpx prisma db pull --force && pnpm prisma generate && node ./build/src/server.js"
   },
   "keywords": [],
   "author": "",
