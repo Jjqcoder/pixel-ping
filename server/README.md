@@ -5,6 +5,9 @@ pnpm tsoa routes
 编译 TypeScript：
 pnpm tsc
 
+使用最新的表结构覆盖本地的schame.prisma
+pnpx prisma db pull --force
+
 生成prisma客户端
 pnpm prisma generate
 
