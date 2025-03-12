@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Path, Body, Request, Route, SuccessResponse } from "tsoa";
 import { PrismaClient } from "@prisma/client";
 import { R } from './../../utils/R'
+import { UserLoginDto } from './dtos/user.dto'
 const prisma = new PrismaClient();
 
 @Route("users")
@@ -15,7 +16,7 @@ export class UserController extends Controller {
 
     // 登录
     @Post("login")
-    public async login(@Body() user: any): Promise<any> {
+    public async login(@Body() user: UserLoginDto): Promise<any> {
       try {
         const { username, password } = user;
         const users = await prisma.users.findMany();
