@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "pnpm tsoa spec-and-routes && pnpm tsc && pnpx prisma db pull --force && pnpm prisma generate && node ./build/src/server.js"
+    "dev": "pnpm tsoa spec-and-routes && pnpm tsc && pnpx prisma db pull --force && pnpm prisma generate && node ./build/src/server.js"
   },
   "keywords": [],
   "author": "",
