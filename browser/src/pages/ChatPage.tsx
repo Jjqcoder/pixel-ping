@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { CurChatComponent } from "./../components/CurChatComponent";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -70,7 +71,10 @@ const ChatPage = () => {
         placeholder="输入消息"
       />
       <button onClick={sendMessage}>发送</button>
+      {/* 当前的聊天对象 */}
+      <CurChatComponent/>
       {/* 当前在线的用户 */}
+      <h2>当前在线的用户</h2>
       {curOnline.map((session, index)=>{
         return <p key={index}>{session}</p>
       })}
