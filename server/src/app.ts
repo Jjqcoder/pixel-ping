@@ -37,6 +37,9 @@ wss.on("connection", (ws) => {
   const sessionId = `${Date.now()}-${Math.random().toString(36).substr(2)}`;
   sessions.set(sessionId, ws);
 
+  // 向当前连接的客户端发送他的 sessionId
+  ws.send(JSON.stringify({ type: "sessionId", data: sessionId }));
+
   // 向所有会话广播当前的 sessionMap
   broadcastSessions();
 

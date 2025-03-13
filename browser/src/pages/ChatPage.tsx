@@ -6,6 +6,7 @@ const ChatPage = () => {
   const [input, setInput] = useState<string>("");
   const [socket, setSocket] = useState<WebSocket | null>(null); // 存储 WebSocket 实例
   const [curOnline, setCurOnline] = useState<string[]>([]);// 当前在线的用户
+  const [sessionId, setSessionId] = useState<string>('sessionId获取失败'); // 存储当前会话的 sessionId
 
   useEffect(() => {
     // 创建 WebSocket 实例
@@ -25,6 +26,9 @@ const ChatPage = () => {
       // 如果收到的消息是sessionMap, 则更新当前在线的用户
       if (JSON.parse(message).type === 'sessionMap') {
         setCurOnline(JSON.parse(message).data)
+      } else if (JSON.parse(message).type === 'sessionId') {
+        console.log('我的sessionId是', JSON.parse(message).data)
+        setSessionId(JSON.parse(message).data);
       }
       setMessages((prevMessages) => [...prevMessages, message]);
     };
@@ -65,6 +69,9 @@ const ChatPage = () => {
   return (
     <div>
       <h1>Chat Page</h1>
+      {/* 显示 sessionId */}
+      {sessionId ? <p>我的 sessionId 是: {sessionId}</p> : <p>正在获取 sessionId...</p>}
+      <h2>消息</h2>
       <div>
         {messages.map((message, index) => (
           <p key={index}>{message}</p>
