@@ -87,8 +87,8 @@ const ChatPage = () => {
       {/* 当前的聊天对象 */}
       <CurChatComponent/>
       {/* 当前在线的用户 */}
-      <h2>当前在线的用户</h2>
-      {curOnline.map((session, index)=>{
+      <h2>当前在线的用户（不包含自己哦）</h2>
+      {curOnline.filter((session)=>session != sessionId).map((session, index)=>{
         return <>
         {/* 唯一的key帮助react高效更新DOM */}
         <div key={session}>
