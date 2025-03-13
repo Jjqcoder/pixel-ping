@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CurChatComponent } from "./../components/CurChatComponent";
+import { ToastContainer, toast } from 'react-toastify';
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -49,9 +50,16 @@ const ChatPage = () => {
 
   // 发送消息
   const sendMessage = () => {
-    if (input.trim() !== "" && socket) {
+    console.log('查看当前的聊天对象', (globalThis as any).curChat);
+    if ((globalThis as any).curChat === undefined || (globalThis as any).curChat === '请选择聊天对象') {
+      // 如果未指定聊天对象 则弹窗提示
+      toast('请选择聊天对象');
+      // alert('请选择聊天对象');
+    } else if (input.trim() !== "" && socket) {
       if (socket.readyState === WebSocket.OPEN) {
-        socket.send(input);
+        console.log(JSON.stringify({'to': (globalThis as any).curChat, 'msg': input}));
+        
+        socket.send(JSON.stringify({'to': (globalThis as any).curChat, 'msg': input}));
         setMessages((prevMessages) => [...prevMessages, `我: ${input}`]);
         setInput("");
       } else {
@@ -68,6 +76,7 @@ const ChatPage = () => {
 
   return (
     <div>
+      <ToastContainer/>
       <h1>Chat Page</h1>
       {/* 显示 sessionId */}
       {sessionId ? <p>我的 sessionId 是: {sessionId}</p> : <p>正在获取 sessionId...</p>}

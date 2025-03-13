@@ -12,6 +12,7 @@ const CurChatComponent = () => {
     const intervalId = setInterval(() => {
       const currentValue = sessionStorage.getItem('curChat') || '请选择聊天对象';
       if (currentValue !== curChatValue) {
+        (globalThis as any).curChat = currentValue
         setCurChatValue(currentValue);
       }
     }, 1000); // 每1秒检查一次 当前curChat的值是否发生了变化
