@@ -4,6 +4,7 @@ const ChatPage = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState<string>("");
   const [socket, setSocket] = useState<WebSocket | null>(null); // 存储 WebSocket 实例
+  const [curOnline, setCurOnline] = useState<string[]>([]);// 当前在线的用户
 
   useEffect(() => {
     // 创建 WebSocket 实例
@@ -18,7 +19,12 @@ const ChatPage = () => {
 
     ws.onmessage = (event) => {
       const message = event.data;
-      console.log("收到消息:", message);
+      // console.log("收到消息:", JSON.parse(message).data);
+      console.log("收到消息:", JSON.parse(message));
+      // 如果收到的消息是sessionMap, 则更新当前在线的用户
+      if (JSON.parse(message).type === 'sessionMap') {
+        setCurOnline(JSON.parse(message).data)
+      }
       setMessages((prevMessages) => [...prevMessages, message]);
     };
 
@@ -64,6 +70,10 @@ const ChatPage = () => {
         placeholder="输入消息"
       />
       <button onClick={sendMessage}>发送</button>
+      {/* 当前在线的用户 */}
+      {curOnline.map((session, index)=>{
+        return <p key={index}>{session}</p>
+      })}
     </div>
   );
 };
