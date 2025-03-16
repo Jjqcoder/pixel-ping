@@ -23,7 +23,7 @@ const CurChatComponent = () => {
 
   return (
     <div>
-      <p>当前curChat的值为：{curChatValue}</p>
+      <p>您正在与【{curChatValue}】聊天</p>
     </div>
   );
 };
