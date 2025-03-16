@@ -70,8 +70,11 @@ wss.on("connection", (ws) => {
 
         // 构造发送的消息
         const responseMessage = JSON.stringify({
-          from: sessionId, // 当前发送者的 sessionId
-          msg: msg,
+          type: "message", // 消息类型
+          data: {
+            from: sessionId, // 当前发送者的 sessionId
+            msg: msg,// 消息内容
+          }
         });
 
         // 查找目标用户的 WebSocket 连接

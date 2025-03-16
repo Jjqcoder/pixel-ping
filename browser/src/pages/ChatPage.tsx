@@ -30,7 +30,7 @@ const ChatPage = () => {
     // 接收信息
     ws.onmessage = (event) => {
       const message: WebSocketMessage = JSON.parse(event.data); // 使用 WebSocketMessage 类型
-      console.log("收到消息:", message);
+      console.log("收到消息！！:", message);
 
       if (message.type === 'sessionMap') {
         setState((prevState) => ({
@@ -43,10 +43,12 @@ const ChatPage = () => {
           ...prevState,
           sessionId: message.data
         }));
-      } else {
+      } else if (message.type === 'message') {
+        // 一个会话向另一个会话发送的信息
+        console.log('😀收到信息', message);
         setState((prevState) => ({
           ...prevState,
-          messages: [...prevState.messages, JSON.stringify(message)]
+          messages: [...prevState.messages, `${message.data.from}: ${message.data.msg}`]
         }));
       }
     };
