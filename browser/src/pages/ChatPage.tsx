@@ -88,12 +88,14 @@ const ChatPage = () => {
       } else {
         console.error("WebSocket未连接，无法发送消息");
       }
+    } else {
+      toast('您未输入内容或websocket未连接，无法发送消息')
     }
   };
 
   const handleClick = (session: SessionId) => { // 使用 SessionId 类型
     sessionStorage.setItem('curChat', session);
-    console.log("点击了", session);
+    toast(`您可以向【${session}】发送信息啦！`);
   };
 
   return (
