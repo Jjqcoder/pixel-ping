@@ -41,9 +41,17 @@ const LoginPage = () => {
 
   };
 
-  const handleRegister = () => {
-    console.log('注册用户名:', username);
-    console.log('注册密码:', password);
+  const handleRegister = async () => {
+    // console.log('注册用户名:', username);
+    // console.log('注册密码:', password);
+    let res;
+
+    try {
+      res = await api.post(`${import.meta.env.VITE_API_BASE_URL}/users/register`, { username, password });
+      toast(res.message)
+    } catch (error) {
+      toast("注册过程发生错误：" + error)
+    }
   };
 
   const onTabChange = (key: string) => {

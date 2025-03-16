@@ -4,7 +4,8 @@
  * 描述: user相关dto
  */
 
-export interface UserLoginDto {
+// 用户名+密码
+export interface UserDto {
   username: string;
   password: string;
 }
