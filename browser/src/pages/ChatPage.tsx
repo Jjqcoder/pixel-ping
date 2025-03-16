@@ -19,7 +19,7 @@ const ChatPage = () => {
   });
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3000");
+    const ws = new WebSocket(`${import.meta.env.VITE_WS_BASE_URL}`);
     setState((prevState) => ({ ...prevState, socket: ws }));
 
     // 连接成功
@@ -71,7 +71,7 @@ const ChatPage = () => {
   const sendMessage = () => {
     const { curChat } = (globalThis as any);
     const { input, socket } = state;
-    
+
     if (!curChat || curChat === '请选择聊天对象') {// 判断使用指定了聊天对象
       toast('请选择聊天对象');
     } else if (input.trim() !== "" && socket) {// 如果输入信息为空或者websocket连接未建立，就不发送信息
