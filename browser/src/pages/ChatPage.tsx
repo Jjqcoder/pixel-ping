@@ -74,7 +74,7 @@ const ChatPage = () => {
     const { input, socket } = state;
 
     if (!curChat || curChat === '请选择聊天对象') {
-      toast('请选择聊天对象');
+      toast(`请选择聊天对象，您当前的聊天对象是【${curChat}】`);
     } else if (input.trim() !== "" && socket) {
       if (socket.readyState === WebSocket.OPEN) {
         const payload: SendMessagePayload = { to: curChat, msg: input };
@@ -94,7 +94,7 @@ const ChatPage = () => {
 
   const handleClick = (session: SessionId) => {
     sessionStorage.setItem('curChat', session);
-    toast(`您可以向【${session}】发送信息啦！`);
+    toast(`您可以向【${session}】发送信息啦！${sessionStorage.getItem("curChat")}`);
   };
 
   return (
