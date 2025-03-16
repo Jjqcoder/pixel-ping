@@ -48,7 +48,7 @@ const ChatPage = () => {
         console.log('😀收到信息', message);
         setState((prevState) => ({
           ...prevState,
-          messages: [...prevState.messages, `${message.data.from}: ${message.data.msg}`]
+          messages: [...prevState.messages, `【${message.data.from}】向【我】发送的信息: ${message.data.msg}`]
         }));
       }
     };
@@ -82,7 +82,7 @@ const ChatPage = () => {
         socket.send(JSON.stringify(payload));// 信息发送！
         setState((prevState) => ({
           ...prevState,// 导入之前的聊天记录
-          messages: [...prevState.messages, `我: ${input}`],// 新增刚刚发送的信息
+          messages: [...prevState.messages, `【我】向【${curChat}】发送的信息：${input}`],// 新增刚刚发送的信息
           input: ""// 输入框设置为空
         }));
       } else {

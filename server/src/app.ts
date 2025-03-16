@@ -2,7 +2,6 @@
 import express, { json, urlencoded } from "express";
 import { RegisterRoutes } from "../build/routes";
 import cors from 'cors'
-import { WebSocketServer, WebSocket } from "ws"; // 引入 WebSocketServer
 import { createServer } from "http"; // 引入 createServer
 import { WebSocketManager } from "./utils/websocket/index"; // 引入 WebSocketManager
 

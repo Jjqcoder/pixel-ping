@@ -7,12 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-}
-
 model users {
   ID       Int     @id @default(autoincrement())
   USERNAME String? @db.VarChar(255)
