@@ -5,10 +5,6 @@
 
 ## 技术选型
 ### 前端
-- 框架：React
-- UI 组件库：Ant Design (Antd)
+React、Vite、Ant Design、TypeScript、Axios
 ### 后端
-- 框架：Express
-- ORM：Prisma
-- API 文档工具：TSOA
-- 数据库：MySQL
+Express、TypeScript、Prisma、WebSocket (ws)、Tsoa
