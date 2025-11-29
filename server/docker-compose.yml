@@ -1,0 +1,18 @@
+services:
+    mysql:
+        image: mariadb:10.5
+        container_name: pixelping-mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_DATABASE: pixelping
+            MYSQL_USER: pixeluser
+            MYSQL_PASSWORD: pixelpassword
+        ports:
+            - '3306:3306'
+        volumes:
+            - mysql-data:/var/lib/mysql
+            - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+    mysql-data:

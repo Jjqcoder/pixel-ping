@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  // 为了兼容Prisma 6.x版本保留url属性
   url      = env("DATABASE_URL")
 }
 
