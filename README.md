@@ -9,7 +9,7 @@
 
 ## 快速启动
 
-1. 补全前后端的.env 文件，可参考.env.sample 文件
+1. 补全前后端的`.env` 文件，可直接复制对应`.env.sample` 文件的内容
 2. 启动数据库服务并运行后端
     ```bash
     pnpm i
@@ -22,7 +22,7 @@
     pnpm install
     pnpm run dev
     ```
-4. 访问`http://localhost:5173`，使用默认账号密码`admin`、`admin123`登录
+4. 访问`http://localhost:5173`，使用默认账号密码`admin`、`admin123`登录即可
 
 ## 技术选型
 
