@@ -4,15 +4,36 @@
 <h1 align="center">pixel-ping</h1>
 
 ## 项目简介
+
 本项目是一个聊天室项目，可实现一对一聊天。
 
+## 快速启动
+
+1. 补全前后端的.env 文件，可参考.env.sample 文件
+2. 启动数据库服务并运行后端
+    ```bash
+    ./start-db-and-backend.sh
+    ```
+3. 启动前端服务
+    ```bash
+    cd browser
+    npm install
+    npm run dev
+    ```
+4. 访问`http://localhost:5173`，使用默认账号密码`admin`、`admin123`登录
+
 ## 技术选型
+
 ### 前端
+
 React、Vite、Ant Design、TypeScript、Axios
+
 ### 后端
+
 Express、TypeScript、Prisma、WebSocket (ws)、Tsoa
 
 ## 项目运行图片
+
 <div align="center">
     <div>
         <h4>登录界面</h4>
