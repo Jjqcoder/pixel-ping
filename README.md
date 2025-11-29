@@ -12,13 +12,15 @@
 1. 补全前后端的.env 文件，可参考.env.sample 文件
 2. 启动数据库服务并运行后端
     ```bash
+    pnpm i
+    pnpm prisma generate # 生成 Prisma 客户端
     ./start-db-and-backend.sh
     ```
 3. 启动前端服务
     ```bash
     cd browser
-    npm install
-    npm run dev
+    pnpm install
+    pnpm run dev
     ```
 4. 访问`http://localhost:5173`，使用默认账号密码`admin`、`admin123`登录
 

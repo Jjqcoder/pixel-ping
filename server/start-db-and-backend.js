@@ -109,8 +109,14 @@ class ServerStarter {
      */
     async fixPrismaPermissions() {
         console.log('🔧 尝试修复Prisma权限问题...')
+        // 跨平台清理命令
+        const isWindows = process.platform === 'win32'
+        const cleanupCommand = isWindows 
+            ? 'powershell -Command "Remove-Item -Path node_modules/.pnpm/@prisma+client* -Recurse -Force -ErrorAction SilentlyContinue"'
+            : 'rm -rf node_modules/.pnpm/@prisma+client*'
+        
         // 先尝试清理Prisma客户端相关文件
-        await this.runCommand('rm -rf node_modules/.pnpm/@prisma+client*')
+        await this.runCommand(cleanupCommand)
         // 重新安装依赖
         console.log('📦 重新安装依赖...')
         await this.runCommand('pnpm install')
@@ -171,7 +177,8 @@ class ServerStarter {
             // 尝试修复权限并重新启动
             await this.fixPrismaPermissions()
             console.log('🔄 重新尝试启动后端...')
-            this.startBackend()
+            // 避免无限循环，直接再次调用此方法
+            this.startBackendWithRetry()
         }
     }
 
