@@ -1,0 +1,26 @@
+services:
+    # 后端服务（简化版，不依赖数据库）
+    backend:
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        container_name: pixel-ping-backend
+        environment:
+            PORT: 3000
+            # 暂时使用SQLite数据库以避免网络依赖
+            DATABASE_URL: sqlite://./dev.db
+        ports:
+            - '3000:3000'
+        restart: always
+
+    # 前端服务
+    frontend:
+        build:
+            context: ./browser
+            dockerfile: Dockerfile
+        container_name: pixel-ping-frontend
+        ports:
+            - '80:80'
+        depends_on:
+            - backend
+        restart: always

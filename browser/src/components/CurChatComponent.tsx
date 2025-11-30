@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const CurChatComponent = () => {
   const [curChatValue, setCurChatValue] = useState(sessionStorage.getItem('curChat') || '请选择聊天对象');

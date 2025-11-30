@@ -3,13 +3,13 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  // 为了兼容Prisma 6.x版本保留url属性
+  provider = "sqlite"
+  // 使用SQLite数据库
   url      = env("DATABASE_URL")
 }
 
 model users {
   ID       Int     @id @default(autoincrement())
-  USERNAME String? @db.VarChar(255)
-  PASSWORD String? @db.VarChar(255)
+  USERNAME String?
+  PASSWORD String?
 }
